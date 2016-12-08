@@ -9,6 +9,7 @@ keywords: [React Native, iOS]
 publish: true
 description: React Native
 ---
+![image](/images/react_native.png)
 
 和[reactivecocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)一样，[react-native](https://github.com/facebook/react-native)也很早就开始关注了，之所以到前段时间才学习，原因有几点
 
