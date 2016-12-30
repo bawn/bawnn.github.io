@@ -10,9 +10,11 @@ keywords: MagicalRecord
 description: MagicalRecord配合Mantle
 ---
 
+![image](http://7ls0py.com1.z0.glb.clouddn.com/bang.png)
+
 在开始之前，我们先创建一个名为MemberManaged的实体
 
-![image](/images/entity.png)
+![image](http://7ls0py.com1.z0.glb.clouddn.com/entity.png)
 
 >MemberManaged.h
 

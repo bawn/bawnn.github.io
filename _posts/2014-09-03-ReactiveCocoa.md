@@ -29,7 +29,7 @@ description: 关于ReactiveCocoa一些使用总结
 ## 倒计时功能
 
 先说说很常用的验证码倒计时功能，用RAC来实现几乎一气呵成
-![验证码](/images/ReactiveCocoa_1.jpg)
+![验证码](http://7ls0py.com1.z0.glb.clouddn.com/ReactiveCocoa_1.jpg)
 点击按钮可以重新开始倒计时
 
 ```
