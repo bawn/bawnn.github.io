@@ -45,5 +45,5 @@ social:
 
 # Google Analytics
 ga:
-    # id: your_ga_id
-    # host: your_host
+    id: UA-58774091-1
+    host: https://bawn.github.io/
