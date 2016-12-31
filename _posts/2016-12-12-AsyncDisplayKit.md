@@ -515,6 +515,6 @@ ___
 7. 最后通过一个 `ASInsetLayoutSpec` 设置一个边距
 
 
-可以看到不仅是 `Node`，`ASLayoutSpec` 本身也可以作为布局元素，这是因为只要是准守了 `<ASLayoutElement>` 协议的对象都可以作为布局元素。
+可以看到不仅是 `Node`，`ASLayoutSpec` 本身也可以作为布局元素，这是因为只要是遵守了 `<ASLayoutElement>` 协议的对象都可以作为布局元素。
 
 未完待续......
