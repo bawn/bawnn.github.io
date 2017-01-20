@@ -32,8 +32,8 @@ paginate_path: "page/:num/"
 
 # Comment
 comment:
-    disqus: bawn
-    # duoshuo:
+    # disqus: bawn
+    duoshuo: bawn
 
 # Social
 social:
