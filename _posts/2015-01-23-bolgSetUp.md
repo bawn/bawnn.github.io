@@ -9,7 +9,7 @@ keywords: Jekyll blog 迁移到gitcafe
 description: Jekyll博客搭建, 迁移到gitcafe
 ---
 
-###注意：###
+### 注意：###
 
 
 由于博客已经换了搭建平台和主题，之前文章的评论已丢失，在这里对那些做过评论的网友说声抱歉。
@@ -76,7 +76,7 @@ sudo gem install -n /usr/local/bin jekyll -v '<3.0.0'
 
 #### 安装主题
 
-1. Fork我使用的这款主题[kasper](https://github.com/rosario/kasper)
+1. Fork我使用的这款主题[kasper](https://github.com/rosario/kasper)（这个是我用的旧主题）
 
 2. 把fork后的项目名改为：`xxxxxx.github.io`xxxx为你的github用户名，比如我的用户名是bawn，那么就需要修改成`bawn.github.io`，这个也正是你博客的地址。
 
@@ -153,6 +153,12 @@ git push origin master
 
 完成之后应该就能看到新的文章已经在你的个人博客主页上了。
 
+
+
+---
+
+### 注意：###
+__以下内容适用于 https://github.com/rosario/kasper 主题的博客搭建__
 
 
 #### 替换谷歌字体库
