@@ -12,7 +12,7 @@ description: valueForKeyPath方法的强大之处
 
 但是这个方法非常强大，举个例子:
 
-```
+```objective-c
 NSArray *array = @[@"name", @"w", @"aa", @"jimsa"];
 NSLog(@"%@", [array valueForKeyPath:@"uppercaseString"]);
 ```
@@ -38,7 +38,7 @@ NSLog(@"%@", [array valueForKeyPath:@"uppercaseString"]);
 
 如果你觉得这个方法就这么点功能，那就错了。还是举具体的例子
 
-- __对NSNumber数组快速计算数组求和、平均数、最大值、最小值__
+###  对NSNumber数组快速计算数组求和、平均数、最大值、最小值
 
 ```
 NSArray *array = @[@1, @2, @3, @4, @10];
@@ -69,9 +69,9 @@ integerValue 操作后直接返回 0 了
 
 
 
-* __剔除重复数据__
+### 剔除重复数据
 
-```
+```objective-c
 NSArray *array = @[@"name", @"w", @"aa", @"jimsa", @"aa"];
 NSLog(@"%@", [array valueForKeyPath:@"@distinctUnionOfObjects.self"]);
 ```
@@ -84,15 +84,13 @@ NSLog(@"%@", [array valueForKeyPath:@"@distinctUnionOfObjects.self"]);
 )
 ```
 
+###  快速取值
 
-* __对NSDictionary数组快速找出相应key对的值__
-
-```
+```objective-c
     NSArray *array = @[@{@"name" : @"cookeee",
                          @"code" : @1},
                        @{@"name" : @"sswwre",
                          @"code" : @2}];
-    NSLog(@"%@", [array valueForKeyPath:@"name"]);
     NSLog(@"%@", [array valueForKeyPath:@"name"]);
 ```
 
@@ -107,11 +105,11 @@ NSLog(@"%@", [array valueForKeyPath:@"@distinctUnionOfObjects.self"]);
 )
 ```
 
-* **嵌套使用**
+###  嵌套使用
 
 对`name`字段对应的值剔除重复数据再取值
 
-```
+```objective-c
 
 NSArray *array = @[@{@"name" : @"cookeee",@"code" : @1},
                     @{@"name": @"jim",@"code" : @2},
@@ -141,10 +139,25 @@ NSArray *array = @[@{@"number" : @1, @"title" : @""},
 NSNumber *max = [array valueForKeyPath:@"@max.number"];
 ```
 
-* __改变UITextfiedl的placeholder的颜色__
+###  改变UITextfiedl的placeholder的颜色
 
 ```
     [searchField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
 ```
 
 比起重写`- (void)drawPlaceholderInRect:(CGRect)rect;`要方便很多
+
+
+
+### 实用例子
+
+```objective-c
+NSArray *array = @[
+                   @[@1, @2],
+                   @[@1, @2, @3, @4],
+                   @[@1, @2, @3]
+                   ];
+NSNumber *count = [[array valueForKeyPath:@"@unionOfObjects.@count"] valueForKeyPath:@"@sum.self"];
+```
+
+计算嵌套数组的总个数，比如这里返回的是 9
