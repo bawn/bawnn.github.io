@@ -109,6 +109,17 @@ self.imageNode = imageNode;
 作用同等于`UILabel`，和 `UILabel` 不同的是 `ASTextNode` 必须通过 `attributedText` 添加文字。值得一提的是：`UILabel` 如果是通过 `NSMutableParagraphStyle` 来自定义行高，在一行的情况下总是会多加上行高的高度(或许是我还不知道怎么解决)，就像这样：
 ![image](http://7ls0py.com1.z0.glb.clouddn.com/oneline.png?imageView2/2/h/200)
 
+现在已经找到了解决办法：添加`NSBaselineOffsetAttributeName`
+
+```objective-c
+ NSDictionary *attributes = @{
+                                     NSFontAttributeName:font,
+                                     NSForegroundColorAttributeName : color,
+                                     NSBaselineOffsetAttributeName : @0
+                                     };
+NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
+```
+
 不过 `ASTextNode` 就没有这个问题。
 
 ### ASImageNode
