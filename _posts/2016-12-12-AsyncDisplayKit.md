@@ -443,7 +443,7 @@ ___
 
 ### 案例二
 
-![image](http://7ls0py.com1.z0.glb.clouddn.com/ASDKDemo2.png)
+![image](http://7ls0py.com1.z0.glb.clouddn.com/ASDKDemo21.png)
 
 这个是[轻芒阅读](http://www.wandoujia.com/yilan?utm_source=homepage&utm_campaign=routine&utm_medium=internal&utm_content=header)(豌豆荚一览) APP 内 AppSo 频道 Cell 的布局，应该也是比较典型的布局之一。为了方便理解先给各个元素定一下名称，从上至下，从左往右分别是：
 
