@@ -4,7 +4,7 @@ title: "关于适配"
 date: 2015-04-03
 comments: true
 categories: iOS
-tags: [适配, iOS]
+tags: [iOS]
 keywords: 适配 iOS iOS适配
 description: iOS开发适配屏幕
 ---

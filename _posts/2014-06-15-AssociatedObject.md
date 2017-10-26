@@ -4,7 +4,7 @@ title: "为类关联对象"
 date: 2014-06-15
 comments: true
 categories: iOS
-tags: [objc_setAssociatedObject, objc_getAssociatedObject]
+tags: [iOS]
 published: true
 keywords: objc_setAssociatedObject objc_getAssociatedObject
 description: 关联对象

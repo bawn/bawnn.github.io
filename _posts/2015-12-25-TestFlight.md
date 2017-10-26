@@ -4,7 +4,7 @@ title: "使用TestFlight"
 date: 2015-12-25
 comments: true
 categories: iOS
-tags: [iOS, TestFlight]
+tags: [TestFlight]
 keywords: TestFlight iOS
 publish: true
 description: 使用TestFlight

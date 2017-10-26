@@ -4,7 +4,7 @@ title: "MagicalRecord"
 date: 2014-12-15
 comments: true
 categories: iOS
-tags: [iOS, MagicalRecord]
+tags: [iOS]
 published: ture
 keywords: MagicalRecord
 description: MagicalRecord配合Mantle

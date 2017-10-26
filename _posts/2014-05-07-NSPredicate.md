@@ -4,7 +4,7 @@ title: "NSPredicate"
 date: 2014-05-07
 comments: true
 categories: iOS
-tags: [NSPredicate]
+tags: [iOS]
 keywords: NSPredicate 筛选
 description: NSPredicate数据筛选
 ---

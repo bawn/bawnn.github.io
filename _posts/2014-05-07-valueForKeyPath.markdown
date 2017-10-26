@@ -4,7 +4,7 @@ title: "valueForKeyPath"
 date: 2014-05-07
 comments: true
 categories: iOS
-tags: [KVC, valueForKeyPath]
+tags: [iOS]
 keywords: iOS KVC valueForKeyPath
 description: valueForKeyPath方法的强大之处
 ---

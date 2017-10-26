@@ -4,7 +4,7 @@ title: "网络请求LCNetwork"
 date: 2015-08-10
 comments: true
 categories: iOS AFNetworking
-tags: [iOS, AFNetworking]
+tags: [iOS]
 keywords: AFNetworking iOS
 publish: true
 description: 网络请求封装库

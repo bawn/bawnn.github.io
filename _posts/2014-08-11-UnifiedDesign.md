@@ -4,7 +4,7 @@ title: "统一设计，iOS6也玩扁平化(转载)"
 date: 2014-08-11
 comments: true
 categories: iOS
-tags: [iOS 6, UINavigationBar, UITabBar, UIToolbar, UISegmentControl]
+tags: [iOS]
 published: ture
 keywords: 统一设计
 ---

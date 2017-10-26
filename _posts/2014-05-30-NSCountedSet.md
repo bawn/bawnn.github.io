@@ -4,7 +4,7 @@ title: "NSCountedSet"
 date: 2014-05-30
 comments: true
 categories: iOS
-tags: [NSCountedSet]
+tags: [iOS]
 published: true
 keywords: NSCountedSet
 description: 统计数组中重复对象的个数

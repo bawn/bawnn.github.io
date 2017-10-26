@@ -4,7 +4,7 @@ title: "UIScrollView相对布局"
 date: 2015-01-04
 comments: true
 categories: iOS
-tags: [UIScrollView, autolayout]
+tags: [iOS]
 keywords: UIScrollView autolayout
 description: UIScrollView相对布局，包含视频教程
 ---

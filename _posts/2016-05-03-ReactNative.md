@@ -4,7 +4,7 @@ title: "React Native杂谈"
 date: 2016-04-15
 comments: true
 categories: [React Native]
-tags: [iOS, React Native]
+tags: [react-native]
 keywords: [React Native, iOS]
 publish: true
 description: React Native

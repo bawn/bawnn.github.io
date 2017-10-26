@@ -4,7 +4,7 @@ title: "新大陆：AsyncDisplayKit"
 date: 2016-12-12
 comments: true
 categories: [AsyncDisplayKit]
-tags: [iOS, AsyncDisplayKit]
+tags: [iOS]
 keywords: [AsyncDisplayKit, iOS]
 publish: true
 description: AsyncDisplayKit

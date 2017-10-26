@@ -4,7 +4,7 @@ title: "带有简单动画的PageControl"
 date: 2015-06-16
 comments: true
 categories: iOS UIPageControl
-tags: [UIPageControl, iOS]
+tags: [iOS]
 keywords: UIPageControl iOS
 publish: true
 description: 带有动画的UIPageControl
