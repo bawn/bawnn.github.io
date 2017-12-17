@@ -87,7 +87,7 @@ ___
   return absoluteLayout;
 }
 ```
-值得提的是：ASAbsoluteLayoutSpec 一般情况都会通过 `ASOverlayLayoutSpec` 或 `ASOverlayLayoutSpec` 着陆。举个例子当视图中只有一个控件需要用的是 `ASAbsoluteLayoutSpec` 布局，而其他控件布局用的是 `ASStackLayoutSpec`（后面会介绍），那么一旦 absoluteLayout 被加入到 `ASStackLayoutSpec` 也就失去它原本的布局的意义。
+值得提的是：ASAbsoluteLayoutSpec 一般情况都会通过 `ASOverlayLayoutSpec` 或 `ASOverlayLayoutSpec` 着陆，因为只有上述两种布局才能保留 ASAbsoluteLayoutSpec 绝对布局的事实。举个例子当视图中只有一个控件需要用的是 `ASAbsoluteLayoutSpec` 布局，而其他控件布局用的是 `ASStackLayoutSpec`（后面会介绍），那么一旦 absoluteLayout 被加入到 `ASStackLayoutSpec` 也就失去它原本的布局的意义。
 
 ```
 ASOverlayLayoutSpec *contentLayout = [ASOverlayLayoutSpec overlayLayoutSpecWithChild:stackLayout overlay:absoluteLayout];
@@ -124,8 +124,7 @@ childNodeA.backgroundColor = [UIColor redColor];
 self.childNodeA = childNodeA;
 ```
 
-那么即使使用上面的布局方式，`childNodeB` 依然在下层。它和之后会说到的
-`ASOverlayLayoutSpec` 实际上更多的用来组合两个 `Element` 而已。
+那么即使使用上面的布局方式，`childNodeB` 依然在下层。
 
 ___
 
@@ -141,7 +140,8 @@ ___
 }
 ```
 
-`_childNode` 相对于父视图边距都为 0，相当于填充整个父视图。
+`_childNode` 相对于父视图边距都为 0，相当于填充整个父视图。它和之后会说到的
+`ASOverlayLayoutSpec` 实际上更多的用来组合两个 `Element` 而已。
 
 ___
 
@@ -318,14 +318,11 @@ ___
     likeLayout.alignItems = ASStackLayoutAlignItemsCenter;
     likeLayout.children = @[self.likeImageNode, self.likeNumberNode];
     
-    
-    
     ASStackLayoutSpec *shareLayout = [ASStackLayoutSpec horizontalStackLayoutSpec];
     shareLayout.spacing = 4.0;
     shareLayout.justifyContent = ASStackLayoutJustifyContentStart;
     shareLayout.alignItems = ASStackLayoutAlignItemsCenter;
     shareLayout.children = @[self.shareImageNode, self.shareNumberNode];
-    
     
     ASStackLayoutSpec *otherLayout = [ASStackLayoutSpec horizontalStackLayoutSpec];
     otherLayout.spacing = 12.0;
@@ -333,19 +330,15 @@ ___
     otherLayout.alignItems = ASStackLayoutAlignItemsCenter;
     otherLayout.children = @[likeLayout, shareLayout];
     
-    
-    
     ASStackLayoutSpec *bottomLayout = [ASStackLayoutSpec horizontalStackLayoutSpec];
     bottomLayout.justifyContent = ASStackLayoutJustifyContentSpaceBetween;
     bottomLayout.alignItems = ASStackLayoutAlignItemsCenter;
     bottomLayout.children = @[self.dateTextNode, otherLayout];
     
-    
     self.titleNode.style.spacingBefore = 12.0f;
     
     self.subTitleNode.style.spacingBefore = 16.0f;
     self.subTitleNode.style.spacingAfter = 20.0f;
-    
     
     ASRatioLayoutSpec *rationLayout = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:0.5 child:self.coverImageNode];
     
@@ -364,7 +357,7 @@ ___
 }
 ```
 
-下面详细解释下为什么这么布局，不过首先要明确的是，Texture 的这套布局方式必须遵守**从里到外**的布局原则，使用起来才会得心应手。
+下面详细解释下布局，不过首先要明确的是，Texture 的这套布局方式遵守**从里到外**的布局原则，使用起来才会得心应手。
 
 1. 根据布局的原则，首先利用 `ASStackLayoutSpec` 布局 `分享图标` 和 `分享数量`、 `喜欢图标` 和 `喜欢数量`。
 2. 还是通过 `ASStackLayoutSpec` 包装第一步的两个的布局得到 `otherLayout` 布局对象。
@@ -376,3 +369,116 @@ ___
 
 可以看到不仅是 `Node`，`ASLayoutSpec` 本身也可以作为布局元素，这是因为只要是遵守了 `<ASLayoutElement>` 协议的对象都可以作为布局元素。
 
+
+
+### 案例三
+
+![image](http://7ls0py.com1.z0.glb.clouddn.com/Texture-1.jpg)
+
+
+
+```swift
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        
+        self.node1.style.preferredSize = CGSize(width: constrainedSize.max.width, height: 136)
+        
+        
+        self.node2.style.preferredSize = CGSize(width: 58, height: 25)
+        self.node2.style.layoutPosition = CGPoint(x: 14.0, y: 95.0)
+        
+        self.node3.style.height = ASDimensionMake(37.0)
+        self.node4.style.preferredSize = CGSize(width: 80, height: 20)
+        self.node5.style.preferredSize = CGSize(width: 80, height: 20)
+        
+        self.node4.style.spacingBefore = 14.0
+        self.node5.style.spacingAfter = 14.0
+        
+        let absoluteLayout = ASAbsoluteLayoutSpec(children: [self.node2])
+        
+        let overlyLayout = ASOverlayLayoutSpec(child: self.node1, overlay: absoluteLayout)
+        
+        let insetLayout = ASInsetLayoutSpec(insets: UIEdgeInsetsMake(0, 14, 0, 14), child: self.node3)
+        insetLayout.style.spacingBefore = 13.0
+        insetLayout.style.spacingAfter = 25.0
+        
+        
+        let bottomLayout = ASStackLayoutSpec.horizontal()
+        bottomLayout.justifyContent = .spaceBetween
+        bottomLayout.alignItems = .start
+        bottomLayout.children = [self.node4, self.node5]
+        bottomLayout.style.spacingAfter = 10.0
+//        bottomLayout.style.width = ASDimensionMake(constrainedSize.max.width)
+        
+        
+        let stackLayout = ASStackLayoutSpec.vertical()
+        stackLayout.justifyContent = .start
+        stackLayout.alignItems = .stretch
+        stackLayout.children = [overlyLayout, insetLayout, bottomLayout]
+        
+        return stackLayout
+    }
+```
+
+
+
+为了演示 ASAbsoluteLayoutSpec 的使用，这里 node3 我们用 ASAbsoluteLayoutSpec 布局。
+
+接下来说下要点：
+
+1. node 和 layoutSpec 都可以设置 style 属性，因为它们都准守 ASLayoutElement 协议
+2. 当 spaceBetween 没有达到你两端对齐的效果，尝试设置当前 layoutSpec 的 `width`（如注释）或它的上一级布局对象的 alignItems，在例子中就是 `stackLayout.alignItems = .stretch`
+3. ASAbsoluteLayoutSpec 必须有落点（除非是只有绝对布局），例子中 ASAbsoluteLayoutSpec 着落点就在 ASOverlayLayoutSpec
+
+
+
+### 案例四
+
+![image](http://7ls0py.com1.z0.glb.clouddn.com/Texture-3.jpg)
+
+
+
+此案例主要为了演示 `flexGrow` 的用法，先介绍下 flexGrow 的作用（来自于简书[九彩拼盘](http://www.jianshu.com/p/0642dfe0e571)）
+
+>该属性来设置，当父元素的宽度大于所有子元素的宽度的和时（即父元素会有剩余空间），子元素如何分配父元素的剩余空间。
+>
+>flex-grow的默认值为0，意思是该元素不索取父元素的剩余空间，如果值大于0，表示索取。值越大，索取的越厉害。举个例子:
+>
+>父元素宽400px，有两子元素：A和B。A宽为100px，B宽为200px，则空余空间为 400-（100+200）= 100px。
+>
+>如果A，B都不索取剩余空间，则有100px的空余空间。
+>
+>如果A索取剩余空间:设置flex-grow为1，B不索取。则最终A的大小为 自身宽度（100px）+ 剩余空间的宽度（100px）= 200px
+>
+>如果A，B都设索取剩余空间，A设置flex-grow为1，B设置flex-grow为2。则最终A的大小为 自身宽度（100px）+ A获得的剩余空间的宽度（100px * (1/(1+2))）,最终B的大小为 自身宽度（200px）+ B获得的剩余空间的宽度（100px * (2/(1+2))）
+
+
+
+```swift
+     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        
+        self.node1.style.height = ASDimensionMake(20.0)
+        var imageLayoutArray = [ASLayoutElement]()
+        
+        [self.node2, self.node3, self.node4].forEach { (node) in
+            let layout = ASRatioLayoutSpec(ratio: 2.0/3.0, child: node)
+            layout.style.flexGrow = 1 // 相当于宽度相等
+            imageLayoutArray.append(layout)
+        }
+        
+        let imageLayout = ASStackLayoutSpec.horizontal()
+        imageLayout.justifyContent = .start
+        imageLayout.alignItems = .start
+        imageLayout.spacing = 14.0
+        imageLayout.children = imageLayoutArray
+        
+        let contentLayout = ASStackLayoutSpec.vertical()
+        contentLayout.justifyContent = .start
+        contentLayout.alignItems = .stretch
+        contentLayout.spacing = 22.0
+        contentLayout.children = [self.node1, imageLayout]
+        
+        return ASInsetLayoutSpec(insets: UIEdgeInsetsMake(22.0, 16.0, 22.0, 16.0), child: contentLayout)
+    }
+```
+
+在这个案例中，`flexGrow` 是为了设置 node2、node3、node4 宽度相同，同时又固定了各自的宽高比，那么对于这个三个控件来说最终的宽度是确定的。
