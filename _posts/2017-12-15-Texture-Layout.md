@@ -426,7 +426,7 @@ ___
 接下来说下要点：
 
 1. node 和 layoutSpec 都可以设置 style 属性，因为它们都准守 ASLayoutElement 协议
-2. 当 spaceBetween 没有达到你两端对齐的效果，尝试设置当前 layoutSpec 的 `width`（如注释）或它的上一级布局对象的 alignItems，在例子中就是 `stackLayout.alignItems = .stretch`
+2. 当 spaceBetween 没有达到两端对齐的效果，尝试设置当前 layoutSpec 的 `width`（如注释）或它的上一级布局对象的 alignItems，在例子中就是 `stackLayout.alignItems = .stretch`
 3. ASAbsoluteLayoutSpec 必须有落点（除非是只有绝对布局），例子中 ASAbsoluteLayoutSpec 着落点就在 ASOverlayLayoutSpec
 
 
@@ -481,4 +481,44 @@ ___
     }
 ```
 
-在这个案例中，`flexGrow` 是为了设置 node2、node3、node4 宽度相同，同时又固定了各自的宽高比，那么对于这个三个控件来说最终的宽度是确定的。
+在这个案例中 node2、node3、node4 的宽度的总和小于父元素的宽度，所以为了达到宽度相同只需要设置三者的 flexGrow 相同就行（都为1），再通过 ASRatioLayoutSpec 固定各自的宽高比，那么对于这个三个控件来说最终的宽度是确定的。
+
+
+
+### 案例四
+
+![image](http://7ls0py.com1.z0.glb.clouddn.com/Texture-2.jpg)
+
+
+
+此案例主要为了演示 `flexShrink` 的用法，同样还来自于简书[九彩拼盘](http://www.jianshu.com/p/0642dfe0e571)关于 flexShrink 的介绍
+
+> 该属性来设置，当父元素的宽度小于所有子元素的宽度的和时（即子元素会超出父元素），子元素如何缩小自己的宽度的。
+>
+> flex-shrink的默认值为1，当父元素的宽度小于所有子元素的宽度的和时，子元素的宽度会减小。值越大，减小的越厉害。如果值为0，表示不减小。
+>
+> 举个例子:父元素宽400px，有两子元素：A和B。A宽为200px，B宽为300px。则A，B总共超出父元素的宽度为(200+300)- 400 = 100px。
+>
+> 如果A，B都不减小宽度，即都设置flex-shrink为0，则会有100px的宽度超出父元素。如果A不减小宽度:设置flex-shrink为0，B减小。则最终B的大小为 自身宽度(300px)- 总共超出父元素的宽度(100px)= 200px如果A，B都减小宽度，A设置flex-shirk为3，B设置flex-shirk为2。则最终A的大小为 自身宽度(200px)- A减小的宽度(100px * (200px * 3/(200 * 3 + 300 * 2))) = 150px,最终B的大小为 自身宽度(300px)- B减小的宽度(100px * (300px * 2/(200 * 3 + 300 * 2))) = 250px
+
+目前关于该属性最常见还是用于对文本的宽度限制，在上图中 textNode 和 displayNode 是两端对齐，而且需要限制文本的最大宽度，这时候设置 `flexShrink` 是最方便的。
+
+```swift
+override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        self.displayNode.style.preferredSize = CGSize(width: 42.0, height: 18.0)
+        self.textNode.style.flexShrink = 1
+        
+        let contentLayout = ASStackLayoutSpec.horizontal()
+        contentLayout.justifyContent = .spaceBetween
+        contentLayout.alignItems = .start
+        contentLayout.children = [self.textNode, self.displayNode]
+        
+        let insetLayout = ASInsetLayoutSpec(insets: UIEdgeInsetsMake(16.0, 16.0, 16.0, 16.0), child: contentLayout)
+        
+        return insetLayout
+        
+    }
+```
+
+**随便提一下的是如果 ASTextNode 出现莫名的文本截断问题，可以用 ASTextNode2 代替。**
+

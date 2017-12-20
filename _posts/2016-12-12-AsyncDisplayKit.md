@@ -67,6 +67,7 @@ Texture 几乎涵盖了常用的控件，下面是 `Texture` 和 `UIKit` 的对�
       * ASNetworkImageNode
         * ASVideoNode
     * ASTextNode
+    * ASTextNode2
   * ASEditableTextNode
   * ASScrollNode
   * ASTableNode
@@ -107,29 +108,15 @@ self.imageNode = imageNode;
 
 ### ASCellNode：
 
-
-
 作用同等于 `UITableViewCell` 或 `UICollectionViewCell`，自带 `indexPath` 属性，有些时候很有用。
 
 ### ASTextNode
 
+作用同等于`UILabel`，和 `UILabel` 不同的是 `ASTextNode` 必须通过 `attributedText` 添加文字。
 
+### ASTextNode2
 
-作用同等于`UILabel`，和 `UILabel` 不同的是 `ASTextNode` 必须通过 `attributedText` 添加文字。值得一提的是：`UILabel` 如果是通过 `NSMutableParagraphStyle` 来自定义行高，在一行的情况下总是会多加上行高的高度(或许是我还不知道怎么解决)，就像这样：
-![image](http://7ls0py.com1.z0.glb.clouddn.com/oneline.png?imageView2/2/h/200)
-
-现在已经找到了解决办法：添加`NSBaselineOffsetAttributeName`
-
-```objective-c
- NSDictionary *attributes = @{
-                                     NSFontAttributeName:font,
-                                     NSForegroundColorAttributeName : color,
-                                     NSBaselineOffsetAttributeName : @0
-                                     };
-NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
-```
-
-不过 `ASTextNode` 就没有这个问题。
+在 ASTextNode 基础修复了一些 Bug
 
 ### ASImageNode
 
