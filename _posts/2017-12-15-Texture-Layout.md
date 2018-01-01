@@ -199,7 +199,7 @@ ___
 ### ASStackLayoutSpec
 
 可以说这是**最常用的类**，而且相对于其他类来说在功能上是最接近于 `AutoLayout` 的。
-之所以称之为**盒子布局**是因为它和 CSS 中 `Flexbox` 很相似，不清楚 `Flexbox` 的可以先看下阮一峰的这篇[博客](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?utm_source=tuicool)。
+之所以称之为**盒子布局**是因为它和 CSS 中 `Flexbox` 很相似，关于 `Flexbox` 的可以看下阮一峰的这篇[文章](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?utm_source=tuicool)。
 
 先看一个例子：
 
