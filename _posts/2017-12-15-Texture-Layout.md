@@ -71,6 +71,7 @@ self.animationImageNode = animationImageNode;
     * ASCenterLayoutSpec   // 居中布局
   * ASStackLayoutSpec      // 盒子布局
   * ASWrapperLayoutSpec    // 填充布局
+  * ASCornerLayoutSpec  // 角标布局
 
 ___
 
@@ -110,7 +111,7 @@ ___
 }
 ```
 
-把`childNodeA` 做为 `childNodeB` 的背景，也就是 `childNodeB` 在上层，要注意的是 `ASBackgroundLayoutSpec` 事实上根本不会改变视图的层级关系，比如：
+把`childNodeA` 做为 `childNodeB` 的背景，也就是 `childNodeB` 在上层，**要注意的是 **`ASBackgroundLayoutSpec` 事实上根本不会改变视图的层级关系，比如：
 
 ```
 ASDisplayNode *childNodeB = [[ASDisplayNode alloc] init];
@@ -267,6 +268,26 @@ ___
     return wrapperLayout;
 }
 ```
+
+
+
+---
+
+### ASCornerLayoutSpec
+
+顾名思义  ASCornerLayoutSpec 适用于类似于角标的布局
+
+```swift
+override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
+{
+  let cornerSpec = ASCornerLayoutSpec(child: avatarNode, corner: badgeNode, location: .topRight)
+  cornerSpec.offset = CGPoint(x: -3, y: 3)
+}
+```
+
+**最需要注意的是**`offset`是控件的Center的偏移
+
+
 
 ## 布局实战
 
@@ -522,3 +543,20 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 
 **随便提一下的是如果 ASTextNode 出现莫名的文本截断问题，可以用 ASTextNode2 代替。**
 
+### 案例五
+
+还算比较典型的例子
+
+![image](http://7ls0py.com1.z0.glb.clouddn.com/ASDKDemo3.png)
+
+```swift
+override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+
+        let otherLayout = ASInsetLayoutSpec(insets: UIEdgeInsetsMake(10.0, 10.0, CGFloat(Float.infinity), CGFloat(Float.infinity)), child: topLeftNode)
+        
+        let contentLayout = ASOverlayLayoutSpec(child: coverImageNode, overlay: otherLayout)
+        return contentLayout
+    }
+```
+
+利用 ASInsetLayoutSpec 是最好的解决方案，值得注意的是对于红色控件只需要设置向上和向左的间距，那么其他方向的可以用 `CGFloat(Float.infinity)` 代替，并不需要给出具体数值。

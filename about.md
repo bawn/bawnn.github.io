@@ -8,7 +8,7 @@ date: 2014-05-07
 
 
 * Github：[@bawn](https://github.com/bawn)
-* Twitter：[@lc5491137](https://twitter.com/lc5491137)
+* Twitter：[@lc5491137](https://twitter.com/bawnnnn)
 * 微博：[bawnnn](http://weibo.com/lingchen0621)
 * Instagram：[bawnnnnn](https://www.instagram.com/bawnnnnn/)
 * 微信：417495879
