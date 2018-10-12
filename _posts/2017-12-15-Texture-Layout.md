@@ -10,7 +10,7 @@ publish: true
 description: Texture
 ---
 
-![image](http://7ls0py.com1.z0.glb.clouddn.com/textture-logo.png)
+![image](http://lc.yardwill.top/textture-logo.png)
 
 `Texture` 拥有自己的一套成熟布局方案，虽然学习成本略高，但至少比原生的 `AutoLayout` 写起来舒服，重点是性能远好于 `AutoLayout` ，`Texture` 文档上也指出了这套布局方案的的优点：
 
@@ -132,7 +132,7 @@ ___
 ### ASInsetLayoutSpec
 
 比较常用的一个类，看图应该能一目了然（图片来自于[官方文档](http://localhost:4000/2016/12/AsyncDisplayKit/)）
-![image](http://7ls0py.com1.z0.glb.clouddn.com/ASInsetLayoutSpec-diagram.png)
+![image](http://lc.yardwill.top/ASInsetLayoutSpec-diagram.png)
 
 ```
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize{
@@ -153,7 +153,7 @@ ___
 ___
 
 ### ASRatioLayoutSpec
-![image](http://7ls0py.com1.z0.glb.clouddn.com/ASRatioLayoutSpec-diagram.png)（图片来自于[官方文档](http://localhost:4000/2016/12/AsyncDisplayKit/)）
+![image](http://lc.yardwill.top/ASRatioLayoutSpec-diagram.png)（图片来自于[官方文档](http://localhost:4000/2016/12/AsyncDisplayKit/)）
 
 也是比较常用的一个类，作用是设置自身的高宽比，例如设置正方形的视图
 
@@ -170,7 +170,7 @@ ___
 
 把它称为**顶点布局**可能有点不恰当，实际上它可以把视图布局在：`左上`、`左下`、`右上`、`右下`四个顶点以外，还可以设置成居中布局。
 
-![image](http://7ls0py.com1.z0.glb.clouddn.com/ASRelativeLayoutSpec.jpg)
+![image](http://lc.yardwill.top/ASRelativeLayoutSpec.jpg)
 
 ```
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize{
@@ -292,7 +292,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 ## 布局实战
 
 ### 案例一
-![image](http://7ls0py.com1.z0.glb.clouddn.com/ASDKDemo1.png)
+![image](http://lc.yardwill.top/ASDKDemo1.png)
 
 简单的文件覆盖在图片上，文字居中。
 
@@ -313,7 +313,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 
 ### 案例二
 
-![image](http://7ls0py.com1.z0.glb.clouddn.com/ASDKDemo21.png)
+![image](http://lc.yardwill.top/ASDKDemo21.png)
 
 这个是[轻芒阅读](http://www.wandoujia.com/yilan?utm_source=homepage&utm_campaign=routine&utm_medium=internal&utm_content=header)(豌豆荚一览) APP 内 AppSo 频道 Cell 的布局，应该也是比较典型的布局之一。为了方便理解先给各个元素定一下名称，从上至下，从左往右分别是：
 
@@ -394,7 +394,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 
 ### 案例三
 
-![image](http://7ls0py.com1.z0.glb.clouddn.com/Texture-1.jpg)
+![image](http://lc.yardwill.top/Texture-1.jpg)
 
 
 
@@ -454,7 +454,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 
 ### 案例四
 
-![image](http://7ls0py.com1.z0.glb.clouddn.com/Texture-3.jpg)
+![image](http://lc.yardwill.top/Texture-3.jpg)
 
 
 
@@ -508,7 +508,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 
 ### 案例四
 
-![image](http://7ls0py.com1.z0.glb.clouddn.com/Texture-2.jpg)
+![image](http://lc.yardwill.top/Texture-2.jpg)
 
 
 
@@ -547,7 +547,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 
 还算比较典型的例子
 
-![image](http://7ls0py.com1.z0.glb.clouddn.com/ASDKDemo3.png)
+![image](http://lc.yardwill.top/ASDKDemo3.png)
 
 ```swift
 override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

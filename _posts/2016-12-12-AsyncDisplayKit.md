@@ -10,7 +10,7 @@ publish: true
 description: Texture
 ---
 
-![image](http://7ls0py.com1.z0.glb.clouddn.com/textture-logo.png)
+![image](http://lc.yardwill.top/textture-logo.png)
 
 
 

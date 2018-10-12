@@ -15,13 +15,13 @@ description: 带有动画的UIPageControl
 目前有三种样式可选，包括：
 
  * LCSquirmPageStyle
- ![image1](http://7ls0py.com1.z0.glb.clouddn.com/LCAnimatedPageControl1.gif)
+ ![image1](http://lc.yardwill.top/LCAnimatedPageControl1.gif)
  * LCScaleColorPageStyle
- ![image2](http://7ls0py.com1.z0.glb.clouddn.com/LCAnimatedPageControl2.gif)
+ ![image2](http://lc.yardwill.top/LCAnimatedPageControl2.gif)
  * LCDepthColorPageStyle
- ![image3](http://7ls0py.com1.z0.glb.clouddn.com/LCAnimatedPageControl3.gif)
+ ![image3](http://lc.yardwill.top/LCAnimatedPageControl3.gif)
  * LCFillColorPageStyle
- ![image4](http://7ls0py.com1.z0.glb.clouddn.com/LCAnimatedPageControl4.gif)
+ ![image4](http://lc.yardwill.top/LCAnimatedPageControl4.gif)
 
 
 ### 例子
@@ -40,7 +40,7 @@ self.pageControl.sourceScrollView = _collectionView;// 绑定 ScrollView
 ```
 
 注意，`indicatorMargin`调整的间距是两个指示器都在放大状态下的距离，图示：
-![2](http://7ls0py.com1.z0.glb.clouddn.com/LCAnimatedPageControl5.png)
+![2](http://lc.yardwill.top/LCAnimatedPageControl5.png)
 
 在 ScaleColorPageStyle 样式下，如果 scrollView 不是滚动到相邻位置的，必须实现以下协议方法，调用`clearIndicators`
 

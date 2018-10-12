@@ -18,21 +18,21 @@ TestFlight 可以很方便的给测试人员发放 APP 测试，这篇博客主�
 
 ### 发送邀请
 
-进入 itunesconnect 选择 APP，点击上方的 TestFlight 菜单，选择`内部测试`，然后点击右侧的`选择版本进行测试`选择一个你要的版本进行测试。![image](http://7ls0py.com1.z0.glb.clouddn.com/TestFlight1.jpg)
+进入 itunesconnect 选择 APP，点击上方的 TestFlight 菜单，选择`内部测试`，然后点击右侧的`选择版本进行测试`选择一个你要的版本进行测试。![image](http://lc.yardwill.top/TestFlight1.jpg)
 
 当选择完版本后，点击下方`内部测试员 `右侧的 ＋ 号，但是会发现只能添加当前开发者的邮箱账号，添加后再次点击 ＋ 号，按照提示跳转到`用户和职能`板块，
 
-![image](http://7ls0py.com1.z0.glb.clouddn.com/TestFlight2.png)
+![image](http://lc.yardwill.top/TestFlight2.png)
 
 这时候顶部有三个菜单分别是`iTunes Connect 用户` `TestFlight Beta 版测试员` `沙箱技术测试员`，一般凭自觉，在都会认为在`TestFlight Beta 版测试员`菜单下的`内部测试员`添加测试账号较为合理，但是这里什么都做不了。
 
 我们需要点击` iTunes Connect 用户`菜单在这里添加用户，点击下方用户右侧的  ＋ 号，添加用户（职能随便选择），被添加的用户会收到一份邮件，点击邮件里面的确认链接即可，添加完会在这里显示用户。
 
-![image](http://7ls0py.com1.z0.glb.clouddn.com/TestFlight3.png)
+![image](http://lc.yardwill.top/TestFlight3.png)
 
 因为在`iTunes Connect 用户`添加过的用户才可以被邀请到测试APP，所以需要返回到`我的APP`板块，选择你要测试的APP，点击上方的`TestFlight`菜单，这时候`内部测试员`右侧的加号就可以添加刚才所添加的用户了，选择完测试人员后点击完成，别忘记点击`储存`。
 
-![image](http://7ls0py.com1.z0.glb.clouddn.com/TestFlight4.jpg)
+![image](http://lc.yardwill.top/TestFlight4.jpg)
 
 ### 验证
 
@@ -42,7 +42,7 @@ TestFlight 可以很方便的给测试人员发放 APP 测试，这篇博客主�
 
 ### 测试内容
 
-简单点说就是测试人员需要知道这次更新修改了什么，以便更好的进行测试。在 TestFlight 菜单下，你会看到有个`构建版本XXX`![image](http://7ls0py.com1.z0.glb.clouddn.com/TestFlight5.jpg)点击就会进入填写测试内容、App 描述的界面，填写完别忘记点击储存，这时候回到 TestFlight APP中的点击进入刚才的测试APP详情页就可以看到`What to Test`里面的测试内容。
+简单点说就是测试人员需要知道这次更新修改了什么，以便更好的进行测试。在 TestFlight 菜单下，你会看到有个`构建版本XXX`![image](http://lc.yardwill.top/TestFlight5.jpg)点击就会进入填写测试内容、App 描述的界面，填写完别忘记点击储存，这时候回到 TestFlight APP中的点击进入刚才的测试APP详情页就可以看到`What to Test`里面的测试内容。
 
 
 
