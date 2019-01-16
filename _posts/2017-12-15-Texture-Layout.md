@@ -363,7 +363,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
     
     ASRatioLayoutSpec *rationLayout = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:0.5 child:self.coverImageNode];
     
-    ASStackLayoutSpec *contentLayout = [ASStackLayoutSpec horizontalStackLayoutSpec];
+    ASStackLayoutSpec *contentLayout = [ASStackLayoutSpec verticalStackLayoutSpec];
     contentLayout.justifyContent = ASStackLayoutJustifyContentStart;
     contentLayout.alignItems = ASStackLayoutAlignItemsStretch;
     contentLayout.children = @[
