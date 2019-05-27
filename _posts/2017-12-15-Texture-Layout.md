@@ -506,7 +506,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 
 
 
-### 案例四
+### 案例五
 
 ![image](http://lc.yardwill.top/Texture-2.jpg)
 
@@ -543,7 +543,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 
 **随便提一下的是如果 ASTextNode 出现莫名的文本截断问题，可以用 ASTextNode2 代替。**
 
-### 案例五
+### 案例六
 
 还算比较典型的例子
 

@@ -160,6 +160,38 @@ extension UIViewController {
 }
 ```
 
+别忘记还有`module_name`，前面说过 module_name 主要用于区分同一个页面内的不同入口，我们来看一个具体的例子，A 和 B 的点击都会触发 ReviewClick 事件，他们的 module_name 分别是 "母亲节好礼清单" 和 "首页时间线"，
 
 
-## 未完待续
+
+```
+{%
+```
+
+分散？
+
+ 
+
+总的来说入口函数够抽象，无论后期增加多少种模型只要它遵循`CommonModelType`即可，甚至对于不熟悉项目的人来说直接传入 id 也是可以正常跳转的。埋点的细节也被隐藏到了入口函数内，而需要上报的数据又由相应的模型负责提供只要它遵循`AnalyticsModelType`即可。
+
+
+
+除了上面说的 ChannelClick 这样子的点击事件，我们还有一种浏览事件，比如浏览了文章详情页：DetaiBrowse，也就是在文章的详情页完全展现出来后就会触发这个埋点，它所需要携带的信息有
+
+```
+{
+    review_id
+    review_title
+    channel_name
+    channel_id
+    previous_page_name
+    previous_module_name
+}
+```
+
+`previous_page_name`代表的是上一个页面的名称，`previous_module_name`上一个页面内的 module_name
+
+```
+%}        
+```
+
