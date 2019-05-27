@@ -560,3 +560,9 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 ```
 
 利用 ASInsetLayoutSpec 是最好的解决方案，值得注意的是对于红色控件只需要设置向上和向左的间距，那么其他方向的可以用 `CGFloat(Float.infinity)` 代替，并不需要给出具体数值。
+
+
+
+
+
+补充：买手俱乐部、ASOverlayLayoutSpec(child: scaleLayout, overlay: dockLayout)、放大效果

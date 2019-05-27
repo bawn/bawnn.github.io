@@ -10,11 +10,11 @@ publish: true
 description: 埋点
 ---
 
-本文主要介绍 [火球买手](https://itunes.apple.com/cn/app/%E7%81%AB%E7%90%83%E4%B9%B0%E6%89%8B-%E5%B8%AE%E4%BD%A0%E9%80%89%E5%A5%BD%E8%B4%A7/id1070842761?mt=8) 项目上的埋点方案（基于[神策](https://www.sensorsdata.cn)），以及一些心得。事实上在项目早期，我们的埋点完全依赖于第三方的全埋点技术，客户端开发人员只需要做一些简单的工作就能满足 BI 部门对数据的需求。但随着业务增长，对数据的准确性和精细化的要求越来越高，之后不得不转向手动埋点，当然这个也是基于第三方的。
+这篇文章主要介绍公司项目在埋点实现上的一些心得，在项目早期这块我们完全依赖于第三方的无痕埋点技术，客户端开发人员只需要做一些简单的工作就能满足 BI 部门对数据的需求。但随着业务增长，对数据的准确性和精细化的要求越来越高，之后不得不转向手动埋点（基于[神策](https://www.sensorsdata.cn)）。
 
-目前 BI 部门对埋点数据要求可以总结为一句话：『从哪里来到哪里去』，比如在 Timeline 中点击一篇文章进入详情页，那么 Timeline 就是『从哪里来』，详情页就是『到哪里去』，当然实际项目中『从哪里来』不只需要一个维度定位，有时候需要两三个维度才能定位。
+很多时候我们需要根据具体业务来选择适合的埋点方案，在 [火球买手](https://itunes.apple.com/cn/app/%E7%81%AB%E7%90%83%E4%B9%B0%E6%89%8B-%E5%B8%AE%E4%BD%A0%E9%80%89%E5%A5%BD%E8%B4%A7/id1070842761?mt=8) 这个项目上 BI 部门对埋点数据要求可以总结为一句话：『从哪里来到哪里去』，比如在 Timeline 中点击一篇文章进入详情页，那么 Timeline 就是『从哪里来』，详情页就是『到哪里去』，当然『从哪里来』不只需要一个维度定位，有时候需要两三个维度才能定位。
 
-下面具体来说下 [火球买手](https://itunes.apple.com/cn/app/%E7%81%AB%E7%90%83%E4%B9%B0%E6%89%8B-%E5%B8%AE%E4%BD%A0%E9%80%89%E5%A5%BD%E8%B4%A7/id1070842761?mt=8) 项目上是如何埋点的，首先『频道主页』是项目中比较常见的页面，它对应的 Model 是 Channel，然后当任何点击进入的频道主页的事件触发后都需要上报以下数据
+下面举一些具体的例子，首先『频道主页』是项目中比较常见的页面，它对应的 Model 是 Channel，然后当任何点击进入的频道主页的事件触发后都需要上报以下数据
 
 ```
 {
@@ -54,7 +54,7 @@ extension UIViewController {
 }
 ```
 
-需要注意的是大多数情况下入口函数只接受一个具象参数是行不通的，因为随着项目的开发业务的迭代总有一些其他的模型被加入，它们同样带有能够跳转至频道主页的 id 属性。还有 pageName 映射：
+大多数情况下入口函数只接受一个具象参数是行不通的，因为随着项目的开发业务的迭代总有一些其他的模型被加入，它们同样带有能够跳转至频道主页的 id 属性，这个后面会提到。然后是 pageName：
 
 ```swift
 extension UIViewController {
@@ -80,7 +80,7 @@ extension UIViewController {
 
 #### 入口函数不够抽象
 
-在实际开发中接收不同的数据模型跳转到同一个页面的情况应该不少见，并且入口函数也是因为埋点把参数从相对抽象的 String 替换成了具象的 Channel，所以抽象 model 是首先要做的。无论接受什么类型参数，传给 ChannelDetail 还是 id，那么让一个只有带有 id 属性的 protocol 去约束模型再合适不过了。
+在实际开发中接收不同的数据模型跳转到同一个页面的情况应该不少见，并且入口函数也是因为埋点把参数从相对抽象的 String 替换成了具象的 Channel，所以抽象 model 是首先要做的。无论接受什么类型参数，实际的跳转只需要用到 id 这一个字段，那么让一个只有带有 id 属性的 protocol 去约束模型再合适不过了。
 
 ```swift
 protocol CommonModelType {
@@ -100,7 +100,7 @@ extension Channel: CommonModelType{}
 func pushToChannellDetail(_ model: CommonModelType?)
 ```
 
-可以接受任何有 id 属性的模型。为了更抽象，甚至可以让 String 也遵守这个协议
+可以接受任何有 id 属性的模型，为了更抽象，甚至可以让 String 也遵守这个协议
 
 ```swift
 extension String: CommonModelType {
@@ -110,7 +110,7 @@ extension String: CommonModelType {
 }
 ```
 
-当然不同其他可以用来跳转到频道主页的模型都可以这样约束。
+
 
 #### 数据提供方式不够优雅
 
@@ -160,9 +160,32 @@ extension UIViewController {
 }
 ```
 
+别忘记还有`module_name`，前面说过 module_name 主要用于区分同一个页面内的不同入口，我们来看一个具体的例子，A 和 B 的点击都会触发 ReviewClick 事件，他们的 module_name 分别是 "母亲节好礼清单" 和 "首页时间线"，
+
+
+
+分散？
+
+ 
+
 总的来说入口函数够抽象，无论后期增加多少种模型只要它遵循`CommonModelType`即可，甚至对于不熟悉项目的人来说直接传入 id 也是可以正常跳转的。埋点的细节也被隐藏到了入口函数内，而需要上报的数据又由相应的模型负责提供只要它遵循`AnalyticsModelType`即可。
 
 
 
-## 未完待续...
+除了上面说的 ChannelClick 这样子的点击事件，我们还有一种浏览事件，比如浏览了文章详情页：DetaiBrowse，也就是在文章的详情页完全展现出来后就会触发这个埋点，它所需要携带的信息有
+
+```
+{
+    review_id
+    review_title
+    channel_name
+    channel_id
+    previous_page_name
+    previous_module_name
+}
+```
+
+`previous_page_name`代表的是上一个页面的名称，`previous_module_name`上一个页面内的 module_name
+
+
 

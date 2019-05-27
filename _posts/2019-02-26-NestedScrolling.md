@@ -153,10 +153,4 @@ publish: true
 
 
 
-### 方案一开源库：[Aquaman](https://github.com/bawn/Aquaman)
-
-### 方案二开源库：[Shazam](https://github.com/bawn/Shazam)
-
-
-
-上面两个解决方案中的 MenuView 都设计成了交由开发者实现，因为即使集成各种样式的也难满足设计上的千奇百怪的要求，参考我的Demo就能很快实现一个自己想要的效果。
+以上两种解决方案的开源库：**方案一：[Aquaman](https://github.com/bawn/Aquaman)**、**方案二：[Shazam](https://github.com/bawn/Shazam)**，关于 MenuView 都设计成了交由开发者实现，这是因为即使 MenuView 集成各种样式的也难满足设计上的千奇百怪的要求，参考我的 Demo 就能很快实现一个自己想要的效果。
