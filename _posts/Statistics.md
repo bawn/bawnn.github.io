@@ -10,7 +10,7 @@ publish: true
 description: 埋点
 ---
 
-这篇文章主要介绍公司项目在埋点实现上的一些心得，在项目早期这块我们完全依赖于第三方的无痕埋点技术，客户端开发人员只需要做一些简单的工作就能满足 BI 部门对数据的需求。但随着业务增长，对数据的准确性和精细化的要求越来越高，之后不得不转向手动埋点（基于[神策](https://www.sensorsdata.cn)）。
+这篇文章主要介绍在本人在公司项目上埋点实现的一些心得，在项目早期我们完全依赖于第三方的无痕埋点技术，客户端开发人员只需要做一些简单的工作就能满足 BI 部门对数据的需求。但随着业务增长，对数据的准确性和精细化的要求越来越高，之后不得不转向手动埋点（基于[神策](https://www.sensorsdata.cn)）。
 
 很多时候我们需要根据具体业务来选择适合的埋点方案，在 [火球买手](https://itunes.apple.com/cn/app/%E7%81%AB%E7%90%83%E4%B9%B0%E6%89%8B-%E5%B8%AE%E4%BD%A0%E9%80%89%E5%A5%BD%E8%B4%A7/id1070842761?mt=8) 这个项目上 BI 部门对埋点数据要求可以总结为一句话：『从哪里来到哪里去』，比如在 Timeline 中点击一篇文章进入详情页，那么 Timeline 就是『从哪里来』，详情页就是『到哪里去』，当然『从哪里来』不只需要一个维度定位，有时候需要两三个维度才能定位。
 
@@ -67,7 +67,7 @@ extension UIViewController {
 }
 ```
 
-最后在具体的跳转处设置 module_name 
+最后在具体的跳转处设置 module_name ，事实上 module_name 不属于 Channel，至于为什么需要和模型绑定，后面会提到 
 
 ```swift
 @objc func buttonAction(_ sender: Any) {
@@ -160,28 +160,46 @@ extension UIViewController {
 }
 ```
 
-别忘记还有`module_name`，前面说过 module_name 主要用于区分同一个页面内的不同入口，我们来看一个具体的例子，A 和 B 的点击都会触发 ReviewClick 事件，他们的 module_name 分别是 "母亲节好礼清单" 和 "首页时间线"，
+别忘记还有`module_name`，前面说过 module_name 主要用于区分同一个页面内的不同入口，我们来看一个具体的例子，点击 "暴躁老哥生活记" 和 "小陶同鞋" 都会触发 ChannelClick 事件，他们的 module_name 分别是 "你可能想关注" 和 "首页时间线"
 
+![image](http://lc.yardwill.top/Statistics-1.png)
 
+在这里 "你可能想关注" 和 "首页时间线" 是固定的，也就是说这两个模块的名称是固定的，而且在项目的早期`module_name`都是这种静态的，回到前面设置 `module_name` 的地方，module_name 显然和业务耦合在了一起
 
+```swift
+@objc func buttonAction(_ sender: Any) {
+    model.module_name = "你可能想关注"
+    pushToChannelDetailController(model)
+}
 ```
-{%
+
+在埋点方案设计的前期最头痛的是怎么处理 module_name，因为从含义上来说 module_name 应该属于视图层面，它不应该绑定到 model 上，但是仔细思考后发现如果把 module_name 绑定到 model 上可以做到足够的低耦合，因为 module_name 在绝大多数情况下在数据返回后已经明确了，比如 "你可能想关注" 和 "首页时间线" 这两个 module_name 我们可以在获取服务端数据后直接绑定到对应的 model 上，想象一下一个页面上的模块划分从数据结构上来说是不是已经明确了，所以说 module_name 甚至可以由服务端直接给出。比如在服务端返回数据之后设置 module_name
+
+```swift
+    func brandFeed() -> [HQBrandList] {
+        ...
+        let listValue = Mapper<BrandList>().mapArray(JSONArray: timeline)
+        listValue.forEach { (item) in
+            item.reviews.forEach({$0.module_name = "xxxxx" + item.title})
+        }
+        return listValue
+    }
 ```
 
-分散？
-
- 
-
-总的来说入口函数够抽象，无论后期增加多少种模型只要它遵循`CommonModelType`即可，甚至对于不熟悉项目的人来说直接传入 id 也是可以正常跳转的。埋点的细节也被隐藏到了入口函数内，而需要上报的数据又由相应的模型负责提供只要它遵循`AnalyticsModelType`即可。
+这样子一来，大部分情况下 module_name 都可以通过这种方式设置，对的，这只是大部分情况下，其他情况后面会提到。
 
 
 
-除了上面说的 ChannelClick 这样子的点击事件，我们还有一种浏览事件，比如浏览了文章详情页：DetaiBrowse，也就是在文章的详情页完全展现出来后就会触发这个埋点，它所需要携带的信息有
+总的来说入口函数够抽象，无论后期增加多少种模型只要它遵循`CommonModelType`即可，甚至对于不熟悉项目的人来说直接传入 id 也是可以正常跳转的。埋点的细节也被隐藏到了入口函数内，而需要上报的数据又由相应的模型负责提供只要它遵循`AnalyticsModelType`，module_name 通过在对应的数据返回处设置即可。
+
+
+
+### 浏览事件
+
+除了上面说的 ChannelClick 这样子的点击事件，我们还有一种浏览事件，比如浏览频道详情页：ChannelBrowse，也就是在频道详情页完全展现出来后就会触发这个埋点，它所需要携带的信息有
 
 ```
 {
-    review_id
-    review_title
     channel_name
     channel_id
     previous_page_name
@@ -189,9 +207,60 @@ extension UIViewController {
 }
 ```
 
-`previous_page_name`代表的是上一个页面的名称，`previous_module_name`上一个页面内的 module_name
+`previous_page_name`代表的是上一个页面的名称，`previous_module_name`是上一个页面内的 module_name，在这里暂且不讨论它和 ChannelClick 到底有什么区别。对于 previous_page_name 我们可以在 navigationController?.viewControllers 里面很简单的获取到，基于这种逻辑当时我当时做了一个错误的决定，就是用一个数组中存放 module_name，这数组初始化就有 N 个空的 module_name，每当有跳转事件发生就在当前的 index 上设置上 module_name，之后一旦有需要就通过当前 viewcontroller 的 index 在这个数组中取到 previous_module_name，但是并不是所有的跳转都会刷新 module_name，也就是并没有把 module_name 设置为空，还有关于 parentViewController 的问题，总之通过单例数组的方案有太多的弊端。
 
-```
-%}        
+总的来说，类似于 ChannelBrowse 这样的事件获取到 previous_module_name 才是关键，除了前面提到的方案，把 previous_module_name 绑定到当前的 viewController 似乎是一种更好的方案，具体就是在通过页面跳转的时候直接把当前的 module_name 绑定到目标 viewController 上。
+
+```swift
+extension UIViewController {
+    var previousValue: (String, String) {
+        get {
+            return (objc_getAssociatedObject(self, &AssociatedKeys.PreviousValue) as? (String, String)) ?? ("", "")
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedKeys.PreviousValue, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
 ```
 
+跳转的时候绑定数据
+
+```swift
+func pushToReviewDetailController(_ model: HQCommonModelType?) {
+        guard let model = model else {
+            return
+        }
+        SensorsAnalyticsSDK.track(key: .reviewClick(model), page: self)
+
+        let viewController = ReviewDetailViewController.instantiateFromSB
+        viewController.reviewId = model._id
+  			let module_name = (model as? AnalyticsModelType)?.module_name ?? ""
+        viewController.previousValue = (pageName, module_name)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+```
+
+执行 ChannelBrowse 浏览事件
+
+```swift
+SensorsAnalyticsSDK.track(key: .channelBrowse(model), page: self)
+```
+
+具体实现
+
+```swift
+static func track(key: SensorsAnalyticsKey, page: UIViewController? = nil) {
+		case .channelBrowse(let model):
+            guard let page = page else {
+                return
+            }
+            var value = model.analytics
+            value["previous_page_name"] = page.previousValue.0
+            value["previous_module_name"] = page.page.previousValue.1
+            value["page_name"] = page.pageName
+            track(key.rawValue, value)
+}
+```
+
+可以看到对于浏览事件的实现其实并不复杂，整个过程只是走了一点弯路。
