@@ -82,13 +82,15 @@ ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff
 
 
 
-![Screen Shot 2019-06-30 at 1.13.44 AM](/Users/bawn/Desktop/Screen Shot 2019-06-30 at 1.13.44 AM.png)
+![AboutImage-3](http://lc.yardwill.top/AboutImage-3.png)
 
 
 
-为什么要强调彩色图片呢，或许你已经猜到了解压一张彩色图片和解压一张只有黑白组成的照片是所消耗的性能是不一样的，对的，比如下面这张图片同样是 400 * 350 的 PNG 图片解压消耗的内存只要288k，计算方法 400 * 350 * 2 = 273k
+为什么要强调彩色图片呢，或许你已经猜到了解压一张彩色图片和解压一张只有黑白组成的照片是所消耗的性能是不一样的，对的，比如下面这张图片同样是 400 * 350 的 PNG 图片
 
-![black@2x](/Users/bawn/Desktop/black@2x.png)
+![AboutImage-4](http://lc.yardwill.top/AboutImage-4.png)
+
+解压消耗的内存只要288k，计算方法 400 * 350 * 2 = 273k
 
 ![Screen Shot 2019-06-30 at 5.07.18 PM](/Users/bawn/Desktop/Screen Shot 2019-06-30 at 5.07.18 PM.png)
 
