@@ -160,11 +160,7 @@ extension UIViewController {
 }
 ```
 
-别忘记还有`module_name`，前面说过 module_name 主要用于区分同一个页面内的不同入口，我们来看一个具体的例子，点击 "暴躁老哥生活记" 和 "小陶同鞋" 都会触发 ChannelClick 事件，他们的 module_name 分别是 "你可能想关注" 和 "首页时间线"
-
-![image](http://lc.yardwill.top/Statistics-1.png)
-
-在这里 "你可能想关注" 和 "首页时间线" 是固定的，也就是说这两个模块的名称是固定的，而且在项目的早期`module_name`都是这种静态的，回到前面设置 `module_name` 的地方，module_name 显然和业务耦合在了一起
+别忘记还有`module_name`，前面说过 module_name 主要用于区分同一个页面内的不同入口，比如页面内A和B入口都会触发 ChannelClick 事件，他们的 module_name 分别是 "A" 和 "B"，回到前面设置 `module_name` 的地方，module_name 显然和业务耦合在了一起
 
 ```swift
 @objc func buttonAction(_ sender: Any) {
@@ -173,7 +169,7 @@ extension UIViewController {
 }
 ```
 
-在埋点方案设计的前期最头痛的是怎么处理 module_name，因为从含义上来说 module_name 应该属于视图层面，它不应该绑定到 model 上，但是仔细思考后发现如果把 module_name 绑定到 model 上可以做到足够的低耦合，因为 module_name 在绝大多数情况下在数据返回后已经明确了，比如 "你可能想关注" 和 "首页时间线" 这两个 module_name 我们可以在获取服务端数据后直接绑定到对应的 model 上，想象一下一个页面上的模块划分从数据结构上来说是不是已经明确了，所以说 module_name 甚至可以由服务端直接给出。比如在服务端返回数据之后设置 module_name
+在埋点方案设计的前期最头痛的是怎么处理 module_name，因为从含义上来说 module_name 应该属于视图层面，它不应该绑定到 model 上，但是仔细思考后发现如果把 module_name 绑定到 model 上可以做到足够的低耦合，因为 module_name 在绝大多数情况下在数据返回后已经明确了，比如 "首页时间线" 这个 module_name 我们可以在获取服务端数据后直接绑定到对应的 model 上，想象一下一个页面上的模块划分从数据结构上来说是不是已经明确了，所以说 module_name 甚至可以由服务端直接给出。比如在服务端返回数据之后设置 module_name
 
 ```swift
     func brandFeed() -> [HQBrandList] {
