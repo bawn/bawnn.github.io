@@ -41,11 +41,7 @@ publish: true
 
 
 
-可以看到三级 ScrollView 和 一级 ScrollView都需要在纵向滚动，所以重点要解决的就是这里的滚动冲突，具体的细节我就不再赘述，大家还可以参考[HGPersonalCenter](https://github.com/ArchLL/HGPersonalCenter)这个项目，里面有详细的注释。
-
-
-
-之所以在前面给出了四个例子，是因为淘票票和简书采用的是上面提到的方案，而抖音和即刻两个则不是，并且即刻在体验上更完美，这个后面会讲到。简单粗暴的用越狱手机+[Reveal](https://revealapp.com/)验证下淘票票
+可以看到三级 ScrollView 和 一级 ScrollView都需要在纵向滚动，所以重点要解决的就是这里的滚动冲突，具体的细节我就不再赘述，大家还可以参考[HGPersonalCenter](https://github.com/ArchLL/HGPersonalCenter)这个项目，里面有详细的注释。下面的视图结构是淘票票首页，可以比较清楚看到采用的是三级 ScrollView 的形式
 
 ![image2](http://lc.yardwill.top/NestedScrolling-2.png)
 
@@ -54,22 +50,33 @@ publish: true
 
 
 - 上层的 MVNestTableView：一级 ScrollView
-
 - 中间的 UIScrollView：二级 ScrollView
-
 - 下层的 MVNestTableView：三级 ScrollView
 
 
 
-当然通过点击状态栏看也可以粗略判断实现方式，比如淘票票在点击状态栏后视图只会滚动到子 ScrollView 的顶部而不是最外面 ScrollView 的，简书虽然滚动到最外层的顶部但效果明显不够自然，原因就是三级 ScrollView 在纵向没有延伸到顶部。
+
+
+之所以在前面给出了四个例子，除了淘票票和简书采用的三级 ScrollView 方案以外还有抖音和即刻采用的二级 ScrollView 方案，并且即刻在体验上更完美，这个后面会讲到。二级 ScrollView 方案的大致结构如下
 
 
 
-抖音和即刻在点击状态栏返回到顶部的效果非常自然，所以有理由相信它们在实现上不同于上述方案，那么抖音和即刻的实现方式具体有什么不同？同样的用[Reveal](https://revealapp.com/)看下即刻的视图结构
+![image-4](http://lc.yardwill.top/NestedScrolling-4.png)
+
+
+
+- 蓝色视图：一级 ScrollView
+- 黑色、深黑、浅黑：二级 ScrollView
+- 红色视图：HeaderView
+- 绿色视图：MenuView
+
+下面是 5.x 版本即刻首页的结构，可以清楚的看到即刻采用的是二级 ScrollView 的方案
 
 ![image3](http://lc.yardwill.top/NestedScrolling-3.png)
 
 
+
+当然通过点击状态栏看也可以粗略判断实现方式，比如淘票票在点击状态栏后视图只会滚动到子 ScrollView 的顶部而不是最外面 ScrollView 的，简书虽然滚动到最外层的顶部但效果明显不够自然，原因就是三级 ScrollView 在纵向没有延伸到顶部，抖音和即刻在点击状态栏返回到顶部的效果则非常自然。
 
 从整体结构上来看即刻只有二级 ScrollView，所以在纵向上 ChildScrollView 会完全接管手势，横向滚动时又由 MainScrollView 控制，这样子带来的好处在于无需关心手势冲突问题，但要实现前面提到的效果还必须处理是以下问题：
 
@@ -85,9 +92,7 @@ publish: true
 
 
 
-在这里就不给出具体的实现细节，文章后面最后有通过两种方案实现的开源库，欢迎 Star。
-
-前面提到的即刻和抖音采用的都是这种二级 ScrollView 的方案，但即刻在体验上更好，比如抖音的个人主页如果手指开始滚动的地方有可交互的控件（Tab栏），那么这时候滑动是会失效的，还有在切换Tab后将视图下拉滚动到顶部然后返回到之前的Tab页，抖音是直接返回到了原始的位置而即刻还是能保留之前进度。
+在这里就不给出具体的实现细节，文章后面最后有通过两种方案实现的开源库，欢迎 Star。虽然即刻和抖音采用的都是这种二级 ScrollView 的方案，但即刻在体验上更好，比如抖音的个人主页如果手指开始滚动的地方有可交互的控件（Tab栏），那么这时候滑动是会失效的，还有在切换Tab后将视图下拉滚动到顶部然后返回到之前的Tab页，抖音是直接返回到了原始的位置而即刻还是能保留之前进度。
 
 
 

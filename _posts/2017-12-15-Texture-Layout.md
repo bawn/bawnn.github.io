@@ -563,8 +563,4 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 
 
 
-### 案例七
-
-
-
-补充：买手俱乐部、ASOverlayLayoutSpec(child: scaleLayout, overlay: dockLayout)、放大效果
+最后，以上的案例已上传至在[TextureLayoutDemo](https://github.com/bawn/TextureLayoutDemo)。
