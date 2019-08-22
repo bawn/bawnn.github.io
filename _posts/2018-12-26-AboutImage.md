@@ -70,7 +70,7 @@ ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff
 
 ### 内存占用
 
-回到文章开头提到的高分辨率图片的解压导致 OOM 问题，首先一个问题是：一张图片解压需要消耗多少内存？答案是 **水平象素 × 垂直象素 × 4 ** 单位是 byte。我们来验证一下，这次换一张稍大的彩色 PNG 图片，它的分辨率是 400 * 350，所以理论上解压需要的内存大小是 400 * 350 * 4 = 547k，测试设备是 iPhone X 12.3.0，通过 Instruments 的 Allocations 检测到结果是 560k 这非常接近于理论值
+回到文章开头提到的高分辨率图片的解压导致 OOM 问题，首先一个问题是：一张图片解压需要消耗多少内存？答案是 **水平象素 × 垂直象素 × 4** 单位是 byte。我们来验证一下，这次换一张稍大的彩色 PNG 图片，它的分辨率是 400 * 350，所以理论上解压需要的内存大小是 400 * 350 * 4 = 547k，测试设备是 iPhone X 12.3.0，通过 Instruments 的 Allocations 检测到结果是 560k 这非常接近于理论值
 
 
 
@@ -108,7 +108,7 @@ ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff
 | RGB  | 32 bpp, 8 bpc,  [kCGImageAlphaPremultipliedFirst](https://developer.apple.com/documentation/coregraphics/cgimagealphainfo/kcgimagealphapremultipliedfirst) | Mac OS X, iOS |
 | RGB  | 32 bpp, 8 bpc,  [kCGImageAlphaPremultipliedLast](https://developer.apple.com/documentation/coregraphics/cgimagealphainfo/kcgimagealphapremultipliedlast) | Mac OS X, iOS |
 
-回到前面的计算方式，在表格中可以看到每个颜色空间（CS）对应的像素格式（Pixel format）和一些常量（bitmap information constant），包括每种颜色空间对应的每像素总 bit 数(bpp)等 ，对于彩色图片来说，解压它所需要用到的必然是 RGB ，对应的就是 32 bpp（关于 16 bpp 后面会提到）， 32 bits / 8 = 4 bytes，所以计算方式就是 **水平象素 × 垂直象素 × 4 **。
+回到前面的计算方式，在表格中可以看到每个颜色空间（CS）对应的像素格式（Pixel format）和一些常量（bitmap information constant），包括每种颜色空间对应的每像素总 bit 数(bpp)等 ，对于彩色图片来说，解压它所需要用到的必然是 RGB ，对应的就是 32 bpp（关于 16 bpp 后面会提到）， 32 bits / 8 = 4 bytes，所以计算方式就是 **水平象素 × 垂直象素 × 4**。
 
 那么对于只有黑白组成的图片，对应的就是灰度颜色空间（Gray），[官方解释](https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/csintro/csintro_colorspace/csintro_colorspace.html#//apple_ref/doc/uid/TP30001148-CH222-BCIFIGHI)
 
@@ -116,7 +116,7 @@ ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff
 
 ![image](https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/csintro/art/scul01_2x.png)
 
-所以内存占用计算方式就是 **水平象素 × 垂直象素 × 2 **（为什么表格给的是 8 bpp），这种解释方式同样适用于 UILabel 的渲染，不信可以试试红色文字的显示和黑白文字的显示需要占用的内存。
+所以内存占用计算方式就是 **水平象素 × 垂直象素 × 2**（为什么表格给的是 8 bpp），这种解释方式同样适用于 UILabel 的渲染，不信可以试试红色文字的显示和黑白文字的显示需要占用的内存。
 
 另外，或许你会想到 UIColor 的有个通过 HSB 颜色空间初始化的方法，貌似违背以上的说法
 
@@ -142,7 +142,7 @@ RGB565 示意图
 
 ![AboutImage-7](http://lc.yardwill.top/AboutImage-7.jpg)
 
-比如我们需要创建一个 bitmap 来表示 RGB565，以十六进制 0x001f 表示其中的一个像素，转化为二进制就是 11111，这时候它表示并不是红色，而是蓝色，因为如果高位不够就会用 0 来补，左边 -> 右边 就是高位 -> 低位，所以最终其实是 0000000000011111 来表示一个像素的颜色，也就是蓝色。知道这些后我们可以动手创建一个RGB565 的 bitmap
+比如我们需要创建一个 bitmap 来表示 RGB565，以十六进制 0x001f 表示其中的一个像素，转化为二进制就是 11111，这时候它表示并不是红色，而是蓝色，因为如果高位不够就会用 0 来补，左边 -> 右边 就是 高位 -> 低位，所以最终其实是 0000000000011111 来表示一个像素的颜色，也就是蓝色。知道这些后我们可以动手创建一个RGB565 的 bitmap
 
 ```swift
     static func makeData() -> UnsafeMutablePointer<UInt16> {
@@ -159,7 +159,7 @@ RGB565 示意图
     }
 ```
 
-这里设置 200 * 200 分辨率的图片上半部分是 0x7e0 也就是 11111100000 绿色，下半部分是 0x001f 就是刚才说的蓝色，然后通过 CGImage 生成图片。
+这里设置 200 * 200 分辨率的图片上半部分是 0x7e0 也就是 0000011111100000 绿色，下半部分是 0x001f 就是刚才说的蓝色，然后通过 CGImage 生成图片。
 
 ```swift
 static var RGB565Image: UIImage? {
