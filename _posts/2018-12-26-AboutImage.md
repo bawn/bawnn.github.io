@@ -52,9 +52,9 @@ extension UIImage {
 
 通过上面提供的方法最终获取到的 bitmap 信息前一小段是这样的（这样子分割开来的十六进制数据一共有 48 * 48 个），事实上这些数据对应的就是各个像素上要显示的颜色信息
 
-```
+
 ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff fffbf9ff ffd5c8ff ffb19bff ff9b7eff ff8765ff ff7e59ff ff7750ff ff7750ff ff7e59ff ff8765ff ff9b7eff ffb19bff ffd5c8ff fffbf9ff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff fff6f3ff ffcbbcff ff9f84ff ff7953ff ff734bff ff734bff ff734bff ff734bff ff734bff ff734bff ff734bff ff734bff ff734bff ff734bff ff734bff ff734bff ff7953ff ff9f84ff ffcbbcff fff6f3ff ffffffff ffffffff ffffffff
-```
+
 
 验证一下，前十七个像素点都是白色，这符合预期，因为左上角都是白色区域，到了第十八个像素点的时候变成了 fffbf9ff，我们把图片放大后对比下
 
