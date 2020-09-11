@@ -10,8 +10,8 @@ publish: true
 description: Texture
 ---
 
-![image](/images/Textture/textture-logo.png)
 
+![image](/images/Textture/textture-logo.png)
 
 
 APP性能的优化，一直都是任重而道远，对于如今需要承载更多信息的APP来说更是突出，值得庆幸的苹果在这方面做得至少比安卓让开发者省心。UIKit 控件虽然在大多数情况下都能满足用户对于流畅性的需求，但有时候还是难以达到理想效果。
