@@ -34,7 +34,7 @@ publish: true
 
 另外头条还引入了[react-native](<https://github.com/facebook/react-native>)（ 0.55.4），在好奇会在哪些页面用到的时候，我在 ipa 包中发现有个`assets/react-native-feedcell/components/`的目录，里面包含了两个文件夹：`interest-tags`、`weather` ，在用 Reveal 看过首页的"我的频道"和搜索中"天气"页面后，发现并不是用 react-native 所写，本以为头条是和 airbnb 一样放弃了 react-native 只不过没有移除而已，最终在"关注感兴趣的人"页面得到了证实（多层的 RCTView 嵌套）。
 
-![TT-1](http://lc.yardwill.top/TT-1.jpg)
+![TT-1](/images/Bytedance/TT-1.jpg)
 
 在 ipa 包内同时还发现了一个`flutter_assets`目录，以及 `Frameworks/Flutter.framework`，所以头条在用 Flutter 的事实没跑了，`packages` 下的资源表明了 Flutter 应该用在小视频相关页面。还有一些可以说的东西：
 
@@ -50,7 +50,7 @@ publish: true
 
 相比于今日头条，皮皮虾作为 18 年的项目，显得保守了一些，虽然引入了 Swift 但我在目前没有在视图方面找到任何的使用痕迹，而且也没有在跨平台上有任何的尝试，当然这只是从我所能获得信息中判断，也不排除皮皮虾使用的是内涵段子老项目的可能。从第三方库的使用看，比较特别的是引入了 [AsyncDisplayKit](<https://github.com/facebookarchive/AsyncDisplayKit>)([Texture](<https://github.com/TextureGroup/Texture>))，但是只出现在首页的"图片" tab 页面内，另外在 keywindow 上有一个常驻的 MPVolumeView 视图，不知道具体拿来做什么用。
 
-![TT-2](http://lc.yardwill.top/TT-2.jpg)
+![TT-2](/images/Bytedance/TT-2.jpg)
 
 
 
@@ -81,7 +81,7 @@ keywindow.rootViewController --> UINavigationController --> UITabBarController
 
 在应用内的 keywindow 上始终有两个隐藏的 webview，一旦有需要使用 webview 就把 keywindow 上 webview 移除，添加到需要用的 viewcontroller 上，同时再初始化一个 webview 添加到 keywindow 上。
 
-![TT-3](http://lc.yardwill.top/TT-3.jpg)
+![TT-3](/images/Bytedance/TT-3.jpg)
 
 
 
@@ -100,7 +100,7 @@ keywindow.rootViewController --> UINavigationController --> UITabBarController
 
 所以关于离线包的下载整个流程是这样的
 
-![TT-4](http://lc.yardwill.top/TT-4.png)
+![TT-4](/images/Bytedance/TT-4.png)
 
 之后再通过下面这种方式加载 html 模板文件，所涉及到 js、css 文件都会通过本地获取，不需要再从服务端拉取，大大加快了网页的加载速度。
 
