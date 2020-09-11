@@ -16,7 +16,7 @@ publish: true
 
 现在大家都应该知道图片从读取到最终渲染都会经历解压的过程，大致过程如下（图片来自于[Image and Graphics Best Practices](https://developer.apple.com/videos/play/wwdc2018/219)）
 
-![AboutImage-8](http://lc.yardwill.top/AboutImage-8.png)
+![AboutImage-8](/images/AboutImage/AboutImage-8.png)
 
 Decode 过程简单说就是把图片转化成 Bitmap，那么 Bitmap 具体是什么？
 
@@ -46,7 +46,7 @@ extension UIImage {
 
 拿下面这张 48 * 48 的图片为例
 
-![image-1](http://lc.yardwill.top/AboutImage-1.png)
+![image-1](/images/AboutImage/AboutImage-1.png)
 
 
 
@@ -60,7 +60,7 @@ ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff
 
 
 
-![AboutImage-2](http://lc.yardwill.top/AboutImage-2.png)
+![AboutImage-2](/images/AboutImage/AboutImage-2.png)
 
 
 
@@ -74,17 +74,17 @@ ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff
 
 
 
-![AboutImage-3](http://lc.yardwill.top/AboutImage-3.png)
+![AboutImage-3](/images/AboutImage/AboutImage-3.png)
 
 
 
 为什么要强调彩色图片呢，或许你已经猜到了解压一张彩色图片和解压一张只有黑白组成的照片是所消耗的性能是不一样的，对的，比如下面这张图片同样是 400 * 350 的 PNG 图片
 
-![AboutImage-4](http://lc.yardwill.top/AboutImage-4.png)
+![AboutImage-4](/images/AboutImage/AboutImage-4.png)
 
 解压消耗的内存只要288k，计算方法 400 * 350 * 2 = 273k
 
-![AboutImage-5](http://lc.yardwill.top/AboutImage-5.png)
+![AboutImage-5](/images/AboutImage/AboutImage-5.png)
 
 这时候可能有些小伙伴会想，这样子也可以的话，那是不是纯红，纯绿或者纯蓝消耗的内存大小也一样的，抱歉，不是的，要解释这个问题需要引入颜色空间的概念，苹果目前支持的颜色空间有下面[这种方式](https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/csintro/csintro_colorspace/csintro_colorspace.html)
 
@@ -134,13 +134,13 @@ HSB 确实是一种颜色空间，但是也是基于 RGB，在[维基百科](htt
 
 RGB888 示意图
 
-![AboutImage-6](http://lc.yardwill.top/AboutImage-6.jpg)
+![AboutImage-6](/images/AboutImage/AboutImage-6.jpg)
 
 
 
 RGB565 示意图
 
-![AboutImage-7](http://lc.yardwill.top/AboutImage-7.jpg)
+![AboutImage-7](/images/AboutImage/AboutImage-7.jpg)
 
 比如我们需要创建一个 bitmap 来表示 RGB565，以十六进制 0x001f 表示其中的一个像素，转化为二进制就是 11111，这时候它表示并不是红色，而是蓝色，因为如果高位不够就会用 0 来补，左边 -> 右边 就是 高位 -> 低位，所以最终其实是 0000000000011111 来表示一个像素的颜色，也就是蓝色。知道这些后我们可以动手创建一个RGB565 的 bitmap
 
