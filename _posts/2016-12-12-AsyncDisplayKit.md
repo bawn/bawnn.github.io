@@ -10,7 +10,7 @@ publish: true
 description: Texture
 ---
 
-![image](http://lc.yardwill.top/textture-logo.png)
+![image](/images/Textture/textture-logo.png)
 
 
 
