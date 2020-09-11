@@ -132,6 +132,7 @@ ___
 ### ASInsetLayoutSpec
 
 比较常用的一个类，看图应该能一目了然（图片来自于[官方文档](http://localhost:4000/2016/12/AsyncDisplayKit/)）
+
 ![image](/images/Texture/ASInsetLayoutSpec-diagram.png)
 
 ```
@@ -153,7 +154,10 @@ ___
 ___
 
 ### ASRatioLayoutSpec
-![image](/images/Texture/ASRatioLayoutSpec-diagram.png)（图片来自于[官方文档](http://localhost:4000/2016/12/AsyncDisplayKit/)）
+
+![image](/images/Texture/ASRatioLayoutSpec-diagram.png)
+
+（图片来自于[官方文档](http://localhost:4000/2016/12/AsyncDisplayKit/)）
 
 也是比较常用的一个类，作用是设置自身的高宽比，例如设置正方形的视图
 
