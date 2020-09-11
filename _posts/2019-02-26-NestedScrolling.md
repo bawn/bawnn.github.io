@@ -25,7 +25,7 @@ publish: true
 
 而且绝大多数的文章都是从如何解决手势冲突出发给出相应的解决方案，原因是他们大多数都采用了三级 Scrollview 的解决方案，如下图
 
-![image1](http://lc.yardwill.top/NestedScrolling-1.png)
+![image1](/images/NestedScrolling/NestedScrolling-1.png)
 
 ​    
 
@@ -43,7 +43,7 @@ publish: true
 
 可以看到三级 ScrollView 和 一级 ScrollView都需要在纵向滚动，所以重点要解决的就是这里的滚动冲突，具体的细节我就不再赘述，大家还可以参考[HGPersonalCenter](https://github.com/ArchLL/HGPersonalCenter)这个项目，里面有详细的注释。下面的视图结构是淘票票首页，可以比较清楚看到采用的是三级 ScrollView 的形式
 
-![image2](http://lc.yardwill.top/NestedScrolling-2.png)
+![image2](/images/NestedScrolling/NestedScrolling-2.png)
 
 
 
@@ -61,7 +61,7 @@ publish: true
 
 
 
-![image-4](http://lc.yardwill.top/NestedScrolling-4.png)
+![image-4](/images/NestedScrolling/NestedScrolling-4.png)
 
 
 
@@ -72,7 +72,7 @@ publish: true
 
 下面是 5.x 版本即刻首页的结构，可以清楚的看到即刻采用的是二级 ScrollView 的方案
 
-![image3](http://lc.yardwill.top/NestedScrolling-3.png)
+![image3](/images/NestedScrolling/NestedScrolling-3.png)
 
 
 

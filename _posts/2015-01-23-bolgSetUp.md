@@ -9,7 +9,7 @@ keywords: Jekyll blog 迁移到gitcafe
 description: Jekyll博客搭建, 迁移到gitcafe
 ---
 
-### 注意：###
+### 注意：
 
 
 由于博客已经换了搭建平台和主题，之前文章的评论已丢失，在这里对那些做过评论的网友说声抱歉。
@@ -157,7 +157,7 @@ git push origin master
 
 ---
 
-### 注意：###
+### 注意：
 __以下内容适用于 https://github.com/rosario/kasper 主题的博客搭建__
 
 
